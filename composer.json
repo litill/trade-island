@@ -1,0 +1,21 @@
+{
+    "name": "greg/trade-island",
+    "description": "Trade Island Trade Platform",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "TradeIsland\\": "src/",
+            "TradeIsland\\Entities\\": "src/entities/",
+            "TradeIsland\\CPTS\\": "src/cpts/",
+            "TradeIsland\\Repos\\": "src/repos/",
+            "TradeIsland\\Rest\\": "src/rest/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Grzegorz Jasiński",
+            "email": "grzegorz.jasinski@polcode.net"
+        }
+    ],
+    "require": {}
+}
