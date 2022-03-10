@@ -26,30 +26,46 @@ class Bid {
 	}
 
 	/**
-	 * Creates a new bid and returns its ID.
+	 * @return Bid[]
+	 */
+	public static function getAll(): array  {
+		return [];
+	}
+	/**
+	 * Uploads (Creates) a new bid and returns its ID.
 	 *
 	 * @param User $user
-	 * @param array $items
+	 * @param UserItem[] $bid_items
 	 *
 	 * @return void
 	 */
-	public static function create( User $user, array $items ) {
+	public static function upload( User $user, array $bid_items ) {
 
 	}
+
 
 	/**
 	 * Checks if the data for bid creation is correct.
 	 *
+	 * @param User $user
+	 * @param UserItem[] $bid_items
+	 *
 	 * @return bool
 	 */
-	public static function isValidToCreate( int $user_id, array $items ): bool {
-		try {
-			$user = new User( $user_id );
-		} catch ( Exception $e ) {
+	public static function isValidToCreate( User $user, array $bid_items ): bool {
+		$user_items = $user->getItemsWithProductData();
+
+		if ( ! $user_items ) {
 			return false;
 		}
 
-		$user_items = $user->getItems();
+		foreach ( $bid_items as $product_id => $bid_item_details ) {
+
+		}
+
+		foreach ( $user_items as $item ) {
+
+		}
 	}
 
 }

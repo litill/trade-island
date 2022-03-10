@@ -3,6 +3,7 @@
 namespace TradeIsland;
 
 use TradeIsland\CPTS\CptBid;
+use TradeIsland\Entities\Bid;
 use TradeIsland\Entities\User;
 use TradeIsland\Repos\ProductsRepo;
 
@@ -34,7 +35,10 @@ class Core {
 			}
 //			$user->clearItems();
 //			$user->generateRandomItems();
-//			var_dump( $user->getItems() );
+			echo '<pre>';
+//			var_dump( $user->getItemsWithProductData() );
+			Bid::isValidToCreate( 3, [] );
+			echo '</pre>';
 		});
 	}
 

@@ -68,6 +68,26 @@ class User {
 	}
 
 	/**
+	 * Gets user items with product data, the array key is the product id.
+	 *
+	 * @return UserItem[]
+	 */
+	public function getItemsWithProductData(): array {
+		$ret = [];
+		$items = $this->getItems();
+
+		if ( ! $items ) {
+			return $ret;
+		}
+
+		foreach ( $items as $product_id => $quantity ) {
+			$ret[ $product_id ] = new UserItem( $product_id, $quantity );
+		}
+
+		return $ret;
+	}
+
+	/**
 	 * Deletes all user's items and set the generation flag to false.
 	 *
 	 * @return void
