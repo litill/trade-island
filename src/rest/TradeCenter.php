@@ -68,7 +68,7 @@ class TradeCenter extends Base {
 	 * @return void
 	 */
 	public function registerAcceptBidRoute(): void {
-		register_rest_route( $this->namespace, '/trade-center/(?P<id>\d+)', [
+		register_rest_route( $this->namespace, '/trade-center/(?P<bid_id>\d+)', [
 			[
 				'methods'  => 'POST',
 				'callback' => [ $this, 'handleAcceptBid' ],

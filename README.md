@@ -34,4 +34,20 @@ Since I was asked today to clean up a bit and prepare the repo for your check, I
 
 Thank you for giving me a chance to try.
 
+Swagger documentation
+---------------------
+
+Please excuse this crude draft, there's nothing much to it right now:
+
+https://app.swaggerhub.com/apis/polcode5/sage-discover_lando_api/5.9.2#/
+
+The app runs now in my local lando container.
+
+Installation
+------------
+
+Please pull this repo into `wp-content/plugins/trade-island` folder
+
+Note: the plugin requires `PHP 7.4`
+
 *Greg*

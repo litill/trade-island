@@ -2,6 +2,9 @@
 
 namespace TradeIsland\Rest;
 
+use WP_REST_Request;
+use WP_REST_Response;
+
 /**
  * Class Profile
  * Handles the REST Endpoints related to User's Profile
@@ -22,6 +25,9 @@ namespace TradeIsland\Rest;
  */
 class Profile extends Base {
 
+	/**
+	 * Profile REST handler constructor.
+	 */
 	public function __construct() {
 		$this->registerRoutes();
 	}
@@ -45,7 +51,14 @@ class Profile extends Base {
 	 * @return void
 	 */
 	public function registerGenerateItemsRoute(): void {
-
+		register_rest_route( $this->namespace, '/profile/generate-items', [
+			[
+				'methods'  => 'POST',
+				'callback' => [ $this, 'handleGenerateItems' ],
+				'permission_callback' => static fn() => true
+			],
+			'schema' => [ $this, 'getGenerateItemsSchema' ],
+		] );
 	}
 
 	/**
@@ -55,6 +68,41 @@ class Profile extends Base {
 	 * @return void
 	 */
 	public function registerMyItemsRoute(): void {
+		register_rest_route( $this->namespace, '/profile/items', [
+			[
+				'methods'  => 'GET',
+				'callback' => [ $this, 'handleMyItems' ],
+				'permission_callback' => static fn() => true
+			],
+			'schema' => [ $this, 'getMyItemsSchema' ],
+		] );
+	}
 
+	/**
+	 * @todo
+	 * @param WP_REST_Request $request
+	 *
+	 * @return WP_REST_Response
+	 */
+	public function handleMyItems( WP_REST_Request $request ): WP_REST_Response {
+		return new WP_REST_Response( [] );
+	}
+
+	/**
+	 * @todo
+	 * @param WP_REST_Request $request
+	 *
+	 * @return WP_REST_Response
+	 */
+	public function handleGenerateItems( WP_REST_Request $request ): WP_REST_Response {
+		return new WP_REST_Response( [] );
+	}
+
+	public function getMyItemsSchema(): array {
+		return [];
+	}
+
+	public function getGenerateItemsSchema(): array {
+		return [];
 	}
 }
