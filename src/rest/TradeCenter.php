@@ -15,37 +15,64 @@ class TradeCenter extends Base {
 		$this->registerRoutes();
 	}
 
+	/**
+	 * Registers Trade Center REST routes.
+	 *
+	 * @return void
+	 */
 	public function registerRoutes(): void {
 		$this->registerListBidsRoute();
 		$this->registerUploadBidRoute();
 		$this->registerAcceptBidRoute();
 	}
 
+	/**
+	 * Registers the `List Bids` route (Get All Available)
+	 * Method: [GET]
+	 *
+	 * @return void
+	 */
 	public function registerListBidsRoute(): void {
 		register_rest_route( $this->namespace, '/trade-center', [
 			[
 				'methods'  => 'GET',
 				'callback' => [ $this, 'handleListBids' ],
+				'permission_callback' => static fn() => true,
+
 			],
 			'schema' => [ $this, 'getListBidsSchema' ],
 		] );
 	}
 
+	/**
+	 * Registers the `Upload` (Create) Bid route
+	 * Method: [POST]
+	 *
+	 * @return void
+	 */
 	public function registerUploadBidRoute(): void {
 		register_rest_route( $this->namespace, '/trade-center', [
 			[
 				'methods'  => 'POST',
 				'callback' => [ $this, 'handleUploadBid' ],
+				'permission_callback' => static fn() => true
 			],
 			'schema' => [ $this, 'getUploadBidSchema' ],
 		] );
 	}
 
+	/**
+	 * Registers the `Accept` (Trade) Bid route
+	 * Method: [POST]
+	 *
+	 * @return void
+	 */
 	public function registerAcceptBidRoute(): void {
 		register_rest_route( $this->namespace, '/trade-center/(?P<id>\d+)', [
 			[
 				'methods'  => 'POST',
 				'callback' => [ $this, 'handleAcceptBid' ],
+				'permission_callback' => static fn() => true
 			],
 			'schema' => [ $this, 'getAcceptBidSchema' ],
 		] );
@@ -72,14 +99,29 @@ class TradeCenter extends Base {
 		] );
 	}
 
+	/**
+	 * @todo
+	 *
+	 * @return array
+	 */
 	public function getListBidsSchema(): array {
 		return [];
 	}
 
+	/**
+	 * @todo
+	 *
+	 * @return array
+	 */
 	public function getUploadBidsSchema(): array {
 		return [];
 	}
 
+	/**
+	 * @todo
+	 *
+	 * @return array
+	 */
 	public function getAcceptBidsSchema(): array {
 		return [];
 	}
