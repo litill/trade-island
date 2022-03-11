@@ -3,8 +3,6 @@
 namespace TradeIsland;
 
 use TradeIsland\CPTS\CptBid;
-use TradeIsland\Entities\Bid;
-use TradeIsland\Entities\User;
 use TradeIsland\Repos\ProductsRepo;
 use TradeIsland\Rest\Profile;
 use TradeIsland\Rest\TradeCenter;
@@ -21,7 +19,6 @@ class Core {
 		$this->hookREST();
 		$this->registerCPTS();
 		$this->initRepos();
-		$this->debug();
 	}
 
 	/**
@@ -52,26 +49,6 @@ class Core {
 	 */
 	private function initRepos(): void {
 		ProductsRepo::getInstance();
-	}
-
-	/**
-	 * @todo remove this
-	 * @return void
-	 */
-	public function debug(): void {
-		add_action( 'wp_footer', function() {
-			try {
-				$user = new User( 3 );
-			} catch ( \Exception $e ) {
-				return;
-			}
-//			$user->clearItems();
-//			$user->generateRandomItems();
-//			echo '<pre>';
-//			var_dump( $user->getItemsWithProductData() );
-//			Bid::isValidToCreate( 3, [] );
-//			echo '</pre>';
-		});
 	}
 
 }
