@@ -52,15 +52,24 @@ class TradeCenter extends Base {
 	}
 
 	protected function handleListBids( WP_REST_Request $request ): WP_Rest_Response {
-		return new WP_Rest_Response( [] );
+		return new WP_Rest_Response( [
+			'success' => true,
+			'msg' => 'LIST BIDS'
+		] );
 	}
 
 	protected function handleUploadBid( WP_REST_Request $request ): WP_Rest_Response {
-		return new WP_Rest_Response( [] );
+		return new WP_Rest_Response( [
+			'success' => true,
+			'msg' => 'UPLOAD BID'
+		] );
 	}
 
 	protected function handleAcceptBid( WP_REST_Request $request ): WP_Rest_Response {
-		return new WP_Rest_Response( [] );
+		return new WP_Rest_Response( [
+			'success' => true,
+			'msg' => 'ACCEPT BID'
+		] );
 	}
 
 	protected function getListBidsSchema(): array {
