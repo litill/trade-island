@@ -5,6 +5,7 @@ namespace TradeIsland\CPTS;
 class CptBid {
 
 	public const CPT_SLUG = 'ti_bid';
+	public const STATUS_SLUG_COMPLETE = 'trade-complete';
 
 	public function __construct() {
 		add_action( 'init', [ $this, 'registerCPT' ], 0 );
@@ -64,7 +65,7 @@ class CptBid {
 
 		register_post_type( static::CPT_SLUG, $args );
 
-		register_post_status( 'trade-complete', array(
+		register_post_status( static::STATUS_SLUG_COMPLETE, array(
 			'label'                     => _x( 'Trade Complete ', 'post status label', 'trade-island' ),
 			'public'                    => true,
 			'label_count'               => _n_noop( 'Complete s <span class="count">(%s)</span>', 'Complete s <span class="count">(%s)</span>', 'trade-island' ),

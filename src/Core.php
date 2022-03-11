@@ -35,9 +35,9 @@ class Core {
 			}
 //			$user->clearItems();
 //			$user->generateRandomItems();
-			echo '<pre>';
+//			echo '<pre>';
 //			var_dump( $user->getItemsWithProductData() );
-			Bid::isValidToCreate( 3, [] );
+//			Bid::isValidToCreate( 3, [] );
 			echo '</pre>';
 		});
 	}

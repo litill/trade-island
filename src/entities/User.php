@@ -63,6 +63,19 @@ class User {
 	}
 
 	/**
+	 * @todo
+	 *
+	 * @param User $origin_user
+	 * @param User $destination_user
+	 * @param array $items
+	 *
+	 * @return bool
+	 */
+	public static function transferItems( User $origin_user, User $destination_user, array $items ): bool {
+
+	}
+
+	/**
 	 * Gets raw user items from the user items meta field.
 	 *
 	 * @return array
