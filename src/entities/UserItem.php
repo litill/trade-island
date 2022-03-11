@@ -34,4 +34,8 @@ class UserItem {
 		return $this->total;
 	}
 
+	public function getProductID(): int {
+		return $this->product->getID();
+	}
+
 }

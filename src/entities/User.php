@@ -39,6 +39,13 @@ class User {
 	private WP_User $_wp_user;
 
 	/**
+	 * User items with product data.
+	 *
+	 * @var UserItem[]
+	 */
+	private array $_items_with_data = [];
+
+	/**
 	 * User constructor.
 	 *
 	 * @throws Exception
@@ -51,13 +58,16 @@ class User {
 		}
 
 		$this->_wp_user = $wp_user;
+
+		$this->fetchItemsWithProductData();
 	}
 
 	/**
-	 * Gets user items.
+	 * Gets raw user items from the user items meta field.
+	 *
 	 * @return array
 	 */
-	public function getItems(): array {
+	private function getItems(): array {
 		$items = get_user_meta( $this->_wp_user->ID, static::$META_USER_ITEMS, true );
 
 		if ( ! $items ) {
@@ -68,23 +78,93 @@ class User {
 	}
 
 	/**
+	 * Fetches the user items with product data, the array key is the product id.
+	 */
+	private function fetchItemsWithProductData(): void {
+		$items = $this->getItems();
+
+		if ( ! $items ) {
+			return;
+		}
+
+		foreach ( $items as $product_id => $quantity ) {
+			$this->_items_with_data[ $product_id ] = new UserItem( $product_id, $quantity );
+		}
+	}
+
+	/**
 	 * Gets user items with product data, the array key is the product id.
 	 *
 	 * @return UserItem[]
 	 */
 	public function getItemsWithProductData(): array {
-		$ret = [];
-		$items = $this->getItems();
+		return $this->_items_with_data;
+	}
 
-		if ( ! $items ) {
-			return $ret;
+	/**
+	 * Checks if all passed items (products with quantities) are in the user's inventory and with enough count.
+	 *
+	 * @param UserItem[] $requested_items
+	 *
+	 * @return bool
+	 */
+	public function areItemsInInventory( array $requested_items ): bool {
+		$ok = true;
+		foreach ( $requested_items as $requested_item ) {
+			if ( ! $this->isItemInInventory( $requested_item ) ) {
+				$ok = false;
+				break;
+			}
 		}
 
-		foreach ( $items as $product_id => $quantity ) {
-			$ret[ $product_id ] = new UserItem( $product_id, $quantity );
+		return $ok;
+	}
+
+	/**
+	 * Checks if the passed item (product with quantity) is in the user's inventory and with enough count.
+	 *
+	 * @param UserItem $requested_item
+	 *
+	 * @return bool
+	 */
+	public function isItemInInventory( UserItem $requested_item ): bool {
+		$found_inventory_item = static::pluckInventoryItem( $requested_item, $this->_items_with_data );
+
+		if ( ! $found_inventory_item ) {
+			return false;
 		}
 
-		return $ret;
+		return static::checkItemQuantity( $requested_item, $found_inventory_item );
+	}
+
+	/**
+	 * Gets the User inventory item information of a specified item (compares the inventory item's Product ID)
+	 *
+	 * @param UserItem $requested_item
+	 * @param UserItem[] $inventory
+	 *
+	 * @return UserItem|null
+	 */
+	public static function pluckInventoryItem( UserItem $requested_item, array $inventory ): ?UserItem {
+		$found = array_filter(  $inventory, fn( UserItem $item ) => $item->getProductID() === $requested_item->getProductID() );
+
+		if ( ! count( $found ) ) {
+			return null;
+		}
+
+		return array_pop( $found );
+	}
+
+	/**
+	 * Checks if the user has enough of the requested product's quantity in his inventory.
+	 *
+	 * @param UserItem $requested_item
+	 * @param UserItem $inventory_item
+	 *
+	 * @return bool
+	 */
+	public static function checkItemQuantity( UserItem $requested_item, UserItem $inventory_item ): bool {
+		return $inventory_item->getQuantity() >= $requested_item->getQuantity();
 	}
 
 	/**

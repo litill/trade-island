@@ -4,6 +4,8 @@ namespace TradeIsland\CPTS;
 
 class CptBid {
 
+	public const CPT_SLUG = 'ti_bid';
+
 	public function __construct() {
 		add_action( 'init', [ $this, 'registerCPT' ], 0 );
 	}
@@ -43,8 +45,8 @@ class CptBid {
 			'label'                 => __( 'Bid', 'trade-island' ),
 			'description'           => __( 'Bids', 'trade-island' ),
 			'labels'                => $labels,
-			'supports'              => array( 'title', 'custom-fields' ),
-			'taxonomies'            => array( 'category', 'post_tag' ),
+			'supports'              => ['title', 'custom-fields'],
+			'taxonomies'            => [],
 			'hierarchical'          => false,
 			'public'                => true,
 			'show_ui'               => true,
@@ -57,9 +59,23 @@ class CptBid {
 			'exclude_from_search'   => true,
 			'publicly_queryable'    => true,
 			'capability_type'       => 'page',
-			'show_in_rest'          => false,
+			'show_in_rest'          => true,
 		);
 
-		register_post_type( 'ti_bid', $args );
+		register_post_type( static::CPT_SLUG, $args );
+
+		register_post_status( 'trade-complete', array(
+			'label'                     => _x( 'Trade Complete ', 'post status label', 'trade-island' ),
+			'public'                    => true,
+			'label_count'               => _n_noop( 'Complete s <span class="count">(%s)</span>', 'Complete s <span class="count">(%s)</span>', 'trade-island' ),
+			'post_type'                 => [ static::CPT_SLUG ],
+			'show_in_admin_all_list'    => true,
+			'show_in_admin_status_list' => true,
+			'show_in_metabox_dropdown'  => true,
+			'show_in_inline_dropdown'   => true,
+			'dashicon'                  => 'dashicons-cart',
+		) );
 	}
+
+
 }
