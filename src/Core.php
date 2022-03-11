@@ -18,6 +18,7 @@ class Core {
 	 * TradeIsland Core constructor.
 	 */
 	public function __construct() {
+		$this->hookREST();
 		$this->registerCPTS();
 		$this->initRepos();
 		$this->debug();
@@ -30,8 +31,8 @@ class Core {
 	 */
 	public function hookREST() {
 		add_action( 'rest_api_init', function() {
-			new TradeCenter();
-			new Profile();
+			( new TradeCenter() );
+			( new Profile() );
 		} );
 	}
 

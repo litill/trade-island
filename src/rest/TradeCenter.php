@@ -11,17 +11,17 @@ use WP_REST_Response;
  */
 class TradeCenter extends Base {
 
-	public function construct() {
+	public function __construct() {
 		$this->registerRoutes();
 	}
 
-	protected function registerRoutes(): void {
+	public function registerRoutes(): void {
 		$this->registerListBidsRoute();
 		$this->registerUploadBidRoute();
 		$this->registerAcceptBidRoute();
 	}
 
-	protected function registerListBidsRoute(): void {
+	public function registerListBidsRoute(): void {
 		register_rest_route( $this->namespace, '/trade-center', [
 			[
 				'methods'  => 'GET',
@@ -31,7 +31,7 @@ class TradeCenter extends Base {
 		] );
 	}
 
-	protected function registerUploadBidRoute(): void {
+	public function registerUploadBidRoute(): void {
 		register_rest_route( $this->namespace, '/trade-center', [
 			[
 				'methods'  => 'POST',
@@ -41,7 +41,7 @@ class TradeCenter extends Base {
 		] );
 	}
 
-	protected function registerAcceptBidRoute(): void {
+	public function registerAcceptBidRoute(): void {
 		register_rest_route( $this->namespace, '/trade-center/(?P<id>\d+)', [
 			[
 				'methods'  => 'POST',
@@ -51,36 +51,36 @@ class TradeCenter extends Base {
 		] );
 	}
 
-	protected function handleListBids( WP_REST_Request $request ): WP_Rest_Response {
+	public function handleListBids( WP_REST_Request $request ): WP_Rest_Response {
 		return new WP_Rest_Response( [
 			'success' => true,
 			'msg' => 'LIST BIDS'
 		] );
 	}
 
-	protected function handleUploadBid( WP_REST_Request $request ): WP_Rest_Response {
+	public function handleUploadBid( WP_REST_Request $request ): WP_Rest_Response {
 		return new WP_Rest_Response( [
 			'success' => true,
 			'msg' => 'UPLOAD BID'
 		] );
 	}
 
-	protected function handleAcceptBid( WP_REST_Request $request ): WP_Rest_Response {
+	public function handleAcceptBid( WP_REST_Request $request ): WP_Rest_Response {
 		return new WP_Rest_Response( [
 			'success' => true,
 			'msg' => 'ACCEPT BID'
 		] );
 	}
 
-	protected function getListBidsSchema(): array {
+	public function getListBidsSchema(): array {
 		return [];
 	}
 
-	protected function getUploadBidsSchema(): array {
+	public function getUploadBidsSchema(): array {
 		return [];
 	}
 
-	protected function getAcceptBidsSchema(): array {
+	public function getAcceptBidsSchema(): array {
 		return [];
 	}
 

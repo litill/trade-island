@@ -8,11 +8,11 @@ namespace TradeIsland\Rest;
  */
 class Profile extends Base {
 
-	public function construct() {
+	public function __construct() {
 		$this->registerRoutes();
 	}
 
-	protected function registerRoutes(): void {
+	public function registerRoutes(): void {
 
 	}
 }

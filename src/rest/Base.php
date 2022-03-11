@@ -19,6 +19,6 @@ abstract class Base {
 	 *
 	 * @return void
 	 */
-	abstract protected function registerRoutes(): void;
+	abstract public function registerRoutes(): void;
 
 }
