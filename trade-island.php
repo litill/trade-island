@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Trade Island
  * Plugin URI:        https://example.com/plugins/the-basics/
- * Description:       Handle the basics with this plugin.
+ * Description:       Trade Island Goods Exchange Platform
  * Version:           0.1
  * Requires at least: 5.2
  * Requires PHP:      7.4

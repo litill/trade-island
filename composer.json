@@ -1,6 +1,6 @@
 {
     "name": "greg/trade-island",
-    "description": "Trade Island Trade Platform",
+    "description": "Trade Island Goods Exchange Platform",
     "type": "project",
     "autoload": {
         "psr-4": {
